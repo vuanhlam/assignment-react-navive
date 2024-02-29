@@ -2,60 +2,30 @@ import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export const OrchidItem = () => {
+export const OrchidItem = ({ item }) => {
+  const navigation = useNavigation();
+
+  function onPressHandler(id) {
+    navigation.navigate("Detail", {
+      orchidId: id,
+    });
+  }
+
   return (
-    <Pressable>
-      <View style={styles.list}>
-        <View style={styles.itemContainer}>
-          <Feather name="heart" size={24} color="black" style={styles.heart} />
-          <Image
-            source={require("../assets/sample.png")}
-            style={styles.image}
-          />
-          <Text style={styles.title}>Bonsai</Text>
-          <Text style={styles.price}>$80</Text>
-        </View>
-        <View style={styles.itemContainer}>
-          <AntDesign
-            name="heart"
-            size={24}
-            color="black"
-            style={[styles.heart, styles.fillheart]}
-          />
-          <Image
-            source={require("../assets/sample.png")}
-            style={styles.image}
-          />
-          <Text style={styles.title}>Bonsai</Text>
-          <Text style={styles.price}>$80</Text>
-        </View>
-
-        <View style={styles.itemContainer}>
-          <AntDesign
-            name="heart"
-            size={24}
-            color="black"
-            style={[styles.heart, styles.fillheart]}
-          />
-          <Image
-            source={require("../assets/sample.png")}
-            style={styles.image}
-          />
-          <Text style={styles.title}>Bonsai</Text>
-          <Text style={styles.price}>$80</Text>
-        </View>
+    <Pressable onPress={() => onPressHandler(item.id)}>
+      <View style={styles.itemContainer}>
+        <Feather name="heart" size={24} color="black" style={styles.heart} />
+        <Image source={require("../assets/sample.png")} style={styles.image} />
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.price}>{item.price}</Text>
       </View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  list: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
   itemContainer: {
     backgroundColor: "#fff",
     width: 170,
@@ -63,7 +33,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: "relative",
     justifyContent: "space-between",
-    marginBottom: 14,
+    margin: 5,
+    textAlign: 'center'
   },
   heart: {
     position: "absolute",

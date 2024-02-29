@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Octicons, FontAwesome6,  } from "@expo/vector-icons";
+import { Octicons, FontAwesome6 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import { HomeScreen } from "./screens/HomeScreen";
 import { FavoritesList } from "./screens/FavoritesList";
@@ -18,7 +19,6 @@ function BottonTabsView() {
       screenOptions={{
         tabBarStyle: { height: 60, borderRadius: 8 },
         tabBarShowLabel: false,
-        sceneContainerStyle: { backgroundColor: "red" },
       }}
     >
       <Tab.Screen
@@ -55,17 +55,27 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Detail" component={DetailScreen} />
+        <Stack.Screen
+          name="Detail"
+          component={DetailScreen}
+          options={{
+            headerTitle: "",
+            headerShown: true,
+            headerTransparent: true,
+            // headerBackTitleVisible: false,
+            contentStyle: { backgroundColor: "#74ad92" },
+            headerBackImage: ({ tintColor }) => (
+              <TouchableOpacity style={{ marginLeft: 10 }}>
+                <Ionicons
+                  name="chevron-back-circle-outline"
+                  size={24}
+                  color={tintColor}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -66,6 +66,7 @@ export default function App() {
             headerShown: true,
             headerTransparent: true,
             headerBackTitleVisible: false,
+            headerTintColor: '#fff',
             contentStyle: { backgroundColor: "#74ad92" },
           }}
         />

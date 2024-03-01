@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   cateText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#9ca3af",
+    color: "#4b5563",
   },
   cateItemActive: {
     backgroundColor: "#74ad92",

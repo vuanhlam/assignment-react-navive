@@ -14,10 +14,13 @@ export const OrchidItem = ({ item }) => {
   }
 
   return (
-    <Pressable onPress={() => onPressHandler(item.id)}>
+    <Pressable
+      onPress={() => onPressHandler(item.id)}
+      style={({ pressed }) => (pressed ? styles.itemPressed : null)}
+    >
       <View style={styles.itemContainer}>
         <Feather name="heart" size={24} color="black" style={styles.heart} />
-        <Image source={require("../assets/sample.png")} style={styles.image} />
+        <Image source={item.image} style={styles.image} />
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.price}>{item.price}</Text>
       </View>
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "space-between",
     margin: 5,
-    textAlign: 'center'
+    textAlign: "center",
   },
   heart: {
     position: "absolute",
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     color: "#9fc6b3",
   },
   image: {
-    width: 130,
+    width: 110,
     height: 130,
     alignSelf: "center",
     marginTop: 12,
@@ -67,4 +70,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: "bold",
   },
+  itemPressed: {
+    opacity: 0.5
+  }
 });

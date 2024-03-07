@@ -8,7 +8,7 @@ export const FavoriteItem = ({ id }) => {
 
   return (
     <View style={styles.itemContainer}>
-      <Image source={item.image} style={styles.image} />
+      <Image source={item.image} style={styles?.image} />
       <View>
         <Text style={styles.title}>{item.name}</Text>
         {/* <Text style={styles.detailDescription}>{item.des}</Text> */}

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { FavoriteItem } from "../components/FavoriteItem";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
@@ -36,13 +43,15 @@ export const FavoritesList = () => {
         <SearchInput />
       </View>
       <ScrollView>
-        {listFav.length > 0 ? (
-          listFav.map((item, index) => {
-            return <FavoriteItem key={`item ${index}`} id={item} />;
-          })
-        ) : (
-          <Text>favorite list is empty</Text>
-        )}
+        <View style={styles.listView}>
+          {listFav.length > 0 ? (
+            listFav.map((item, index) => {
+              return <FavoriteItem key={`item ${index}`} id={item} />;
+            })
+          ) : (
+            <Text style={styles.empty}>favorite list is empty</Text>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -61,6 +70,16 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     borderRadius: 10,
-    width: '800'
+    width: Dimensions.get("window").width - 20,
+    marginHorizontal: 10,
+  },
+  empty: {
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 40,
+  },
+  listView: {
+    justifyContent: "center",
+    alignItems: 'center'
   },
 });

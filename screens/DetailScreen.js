@@ -13,33 +13,35 @@ import { orchids } from "../data/orchid";
 import { getData, storeData } from "../store/asyncStorage";
 
 export const DetailScreen = ({ route }) => {
+  const id = route.params?.orchidId;
   const [isActive, setIsActive] = useState(false);
   const [favoriteList, setFavoriteList] = useState([]);
-  const [listOrchid, setListOrchid] = useState([]);
-  const id = route.params?.orchidId;
   const orchid = orchids.find((item) => item.id === id);
 
-  function handleAddNewFav(item) {
-    storeData("fav-list", [...favoriteList, item]);
-    console.log(item);
+  const isFav = favoriteList.includes(id);
+
+  function handleAddNewFav() {
+    if (isFav) {
+      const newItems = favoriteList.filter((item) => item !== id);
+      storeData("fav-list", newItems);
+    } else {
+      storeData("fav-list", [...favoriteList, id]);
+    }
     setIsActive(!isActive);
   }
 
   async function getOrchidList() {
-    const result = await getData("orchid-list");
     const favoriteList = await getData("fav-list");
     setFavoriteList(favoriteList);
-    setListOrchid(result);
   }
 
   useEffect(() => {
     getOrchidList();
-  }, []);
+  }, [favoriteList]);
 
-  console.log(favoriteList);
   return (
     <SafeAreaView styles={styles.detailContainer}>
-      <Image source={orchid.image} style={styles.image} />
+      <Image source={orchid?.image} style={styles.image} />
       <View style={styles.description}>
         <View style={styles.topInfo}>
           <View>
@@ -47,7 +49,7 @@ export const DetailScreen = ({ route }) => {
             <Text style={styles.subtitle}>{orchid.pots}</Text>
           </View>
           <TouchableOpacity onPress={() => handleAddNewFav(orchid.id)}>
-            {isActive ? (
+            {isFav ? (
               <AntDesign name="heart" size={24} style={styles.heart} />
             ) : (
               <Feather name="heart" size={24} style={styles.heart} />
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     // textAlign: "justify",
     width: "100%",
     fontSize: 13,
-    marginTop: 5
+    marginTop: 5,
   },
   topInfo: {
     flexDirection: "row",
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginTop: 5,
-    fontSize: 15
+    fontSize: 15,
   },
   price: {
     fontSize: 20,

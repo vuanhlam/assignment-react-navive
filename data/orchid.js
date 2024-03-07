@@ -5,6 +5,10 @@ export const orchids = [
     subTitle: "hiếm vcl",
     price: "1.000.000",
     image: require("../assets/final1.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 1,
+    branches: 40,
+    pots: "Chậu sứ hoa văn",
   },
   {
     id: 1,
@@ -12,33 +16,53 @@ export const orchids = [
     subTitle: "hiếm vcl",
     price: "3.900.000",
     image: require("../assets/image2.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 2,
+    branches: 30,
+    pots: "Chậu đá Marble",
   },
   {
     id: 2,
     name: "Hồ điệp tím",
     subTitle: "hiếm vcl",
     price: "5.900.000",
-    image: require("../assets/image3.png")
+    image: require("../assets/image3.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 3,
+    branches: 21,
+    pots: "Chậu sứ trắng",
   },
   {
     id: 3,
     name: "Hồ điệp trắng",
     subTitle: "hiếm vcl",
     price: "10.100.000",
-    image: require("../assets/image4.png")
+    image: require("../assets/image4.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 4,
+    branches: 10,
+    pots: "Chậu sứ giả đá",
   },
   {
     id: 4,
     name: "Hồ điệp trắng",
     subTitle: "hiếm vcl",
     price: "36.000.000",
-    image: require("../assets/image5.png")
+    image: require("../assets/image5.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 5,
+    branches: 11,
+    pots: "Chậu sứ đen",
   },
   {
     id: 5,
     name: "hồ điệp mini",
     subTitle: "hiếm vcl",
     price: "3.900.000",
-    image: require("../assets/image6.png")
+    image: require("../assets/image6.png"),
+    des: "Beautiful Orchids cam kết sản phẩm được thực hiện dựa trên mẫu đã chọn với mức độ giống mẫu khoảng 80-90%, nếu có thay đổi về màu sắc hoa cũng như loại hoa sẽ được chúng tôi sẽ chủ động liên lạc với khách hàng để thông b áo và tư vấn hoa thay thế, vẫn giữ nguyên mức giá sẽ không thay đổi.",
+    cateId: 6,
+    branchss: 29,
+    pots: "Chậu hoa văn + đôn"
   },
 ];

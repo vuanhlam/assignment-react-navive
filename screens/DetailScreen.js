@@ -1,52 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
   Image,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { orchids } from "../data/orchid";
+import { getData, storeData } from "../store/asyncStorage";
 
 export const DetailScreen = ({ route }) => {
-  const id = route.params.orchidId;
+  const [isActive, setIsActive] = useState(false);
+  const [favoriteList, setFavoriteList] = useState([]);
+  const [listOrchid, setListOrchid] = useState([]);
+  const id = route.params?.orchidId;
+  const orchid = orchids.find((item) => item.id === id);
+
+  function handleAddNewFav(item) {
+    storeData("fav-list", [...favoriteList, item]);
+    console.log(item);
+    setIsActive(!isActive);
+  }
+
+  async function getOrchidList() {
+    const result = await getData("orchid-list");
+    const favoriteList = await getData("fav-list");
+    setFavoriteList(favoriteList);
+    setListOrchid(result);
+  }
+
+  useEffect(() => {
+    getOrchidList();
+  }, []);
+
+  console.log(favoriteList);
   return (
     <SafeAreaView styles={styles.detailContainer}>
-      <Image source={require("../assets/sample.png")} style={styles.image} />
+      <Image source={orchid.image} style={styles.image} />
       <View style={styles.description}>
         <View style={styles.topInfo}>
           <View>
-            <Text style={styles.title}>Hello Monstera</Text>
-            <Text style={styles.subtitle}>Hello Monstera</Text>
+            <Text style={styles.title}>{orchid.name}</Text>
+            <Text style={styles.subtitle}>{orchid.pots}</Text>
           </View>
-          {/* <Feather name="heart" size={24} color="black" style={styles.heart} /> */}
-          <AntDesign
-            name="heart"
-            size={24}
-            color="black"
-            style={styles.heart}
-          />
+          <TouchableOpacity onPress={() => handleAddNewFav(orchid.id)}>
+            {isActive ? (
+              <AntDesign name="heart" size={24} style={styles.heart} />
+            ) : (
+              <Feather name="heart" size={24} style={styles.heart} />
+            )}
+          </TouchableOpacity>
         </View>
-        <Text style={styles.price}>60.000 VND</Text>
-        <Text style={styles.detailDescription}>
-          In order to constrain memory and enable smooth scrolling, content is
-          rendered asynchronously offscreen. This means it's possible to scroll
-          faster than the fill rate and momentarily see blank content. This is a
-          tradeoff that can be adjusted to suit the needs of each application,
-          and we are working on improving it behind the scenes.
-        </Text>
+        <Text style={styles.price}>{orchid.price} vnd</Text>
+        <Text style={styles.detailDescription}>{orchid.des}</Text>
         <View style={styles.footer}>
           <View style={styles.quantity}>
             <View style={styles.minusplus}>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>-</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 17 }}>-</Text>
             </View>
             <View style={styles.number}>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>1</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 17 }}>1</Text>
             </View>
             <View style={styles.minusplus}>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>+</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 17 }}>+</Text>
             </View>
           </View>
           <View style={styles.cartButton}>
@@ -76,10 +95,13 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   detailDescription: {
-    marginTop: 10,
+    height: 100,
+    // marginTop: 10,
     opacity: 0.6,
-    textAlign: "justify",
+    // textAlign: "justify",
     width: "100%",
+    fontSize: 13,
+    marginTop: 5
   },
   topInfo: {
     flexDirection: "row",
@@ -91,46 +113,47 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginTop: 5,
+    fontSize: 15
   },
   price: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 10,
+    marginTop: 5,
   },
   heart: {
     color: "#9fc6b3",
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
   },
   quantity: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 20
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
   },
   cartButton: {
     backgroundColor: "#618f79",
     paddingVertical: 10,
     paddingHorizontal: 25,
-    borderRadius: 13
+    borderRadius: 13,
   },
   cartText: {
     fontSize: 15,
-    color: '#fff',
-    fontWeight: 'bold'
+    color: "#fff",
+    fontWeight: "bold",
   },
   minusplus: {
-    backgroundColor: '#e4e8e6',
+    backgroundColor: "#e4e8e6",
     width: 30,
     height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 4,
   },
   number: {
     paddingHorizontal: 10,
-  }
+  },
 });

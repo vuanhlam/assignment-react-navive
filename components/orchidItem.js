@@ -19,10 +19,10 @@ export const OrchidItem = ({ item }) => {
       style={({ pressed }) => (pressed ? styles.itemPressed : null)}
     >
       <View style={styles.itemContainer}>
-        <Feather name="heart" size={24} color="black" style={styles.heart} />
+        {/* <Feather name="heart" size={24} color="black" style={styles.heart} /> */}
         <Image source={item.image} style={styles.image} />
         <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.price}>{item.price}</Text>
+        <Text style={styles.price}>{item.price} đ</Text>
       </View>
     </Pressable>
   );
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     bottom: 30,
     marginLeft: 10,
     fontWeight: "bold",
+    color: '#475569'
   },
   price: {
     position: "absolute",
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     marginLeft: 10,
     fontWeight: "bold",
+    color: '#475569'
   },
   itemPressed: {
     opacity: 0.5

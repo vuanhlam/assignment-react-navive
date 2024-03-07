@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { categories } from "../data/categories";
 
-export const Categories = () => {
+export const Categories = ({ selectCategory }) => {
   const [itemSelected, setItemSelected] = useState(0);
 
   function handleSelectedItem(id) {
     setItemSelected(id);
+    selectCategory(id);
   }
 
   return (
@@ -17,11 +18,7 @@ export const Categories = () => {
     >
       {categories.map((cate, index) => {
         return (
-          <Pressable
-            onPress={() => handleSelectedItem(cate.id)}
-            // style={({pressed}) => pressed && styles.cateItemActive}
-            key={cate.id}
-          >
+          <Pressable onPress={() => handleSelectedItem(cate.id)} key={cate.id}>
             <View
               style={[
                 styles.cateItem,

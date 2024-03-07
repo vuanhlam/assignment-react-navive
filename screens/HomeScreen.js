@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Categories } from "../components/Categories";
@@ -7,8 +7,19 @@ import { AntDesign } from "@expo/vector-icons";
 import { OrchidItem } from "../components/orchidItem";
 import { ListOrchid } from "../components/ListOrchid";
 import { SearchInput } from "../components/SearchInput";
+import { orchids } from "../data/orchid";
+import { getData, storeData } from "../store/asyncStorage";
 
 export const HomeScreen = () => {
+  const [selectedCate, setSelectedCate] = useState(0);
+
+  const filteredOrchids = orchids.filter((item) => {
+    if (selectedCate !== 0) {
+      return item.id === selectedCate;
+    }
+    return item;
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -18,18 +29,18 @@ export const HomeScreen = () => {
       <View style={styles.searchInput}>
         <SearchInput />
       </View>
-      <View>
+      {/* <View>
         <Text style={styles.title}>Popular</Text>
         <Popular />
-      </View>
+      </View> */}
       <View>
         <Text style={styles.title}>Categories</Text>
       </View>
       <View>
-        <Categories />
+        <Categories selectCategory={setSelectedCate} />
       </View>
-      <View style={{ flex: 1}}>
-        <ListOrchid />
+      <View style={{ flex: 1 }}>
+        <ListOrchid listOrchids={filteredOrchids} />
       </View>
     </SafeAreaView>
   );
@@ -60,7 +71,7 @@ const styles = StyleSheet.create({
   plants: {
     fontSize: 30,
     fontWeight: "bold",
-    paddingBottom: 3,
+    // paddingBottom: 3,
     color: "#374151",
   },
 });

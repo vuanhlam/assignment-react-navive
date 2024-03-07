@@ -2,11 +2,11 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { orchids } from "../data/orchid";
 import { OrchidItem } from "./orchidItem";
 
-export const ListOrchid = () => {
+export const ListOrchid = ({ listOrchids }) => {
   return (
     <View>
       <FlatList
-        data={orchids}
+        data={listOrchids}
         renderItem={(item) => <OrchidItem item={item.item} />}
         keyExtractor={(item) => item.id}
         numColumns={2}

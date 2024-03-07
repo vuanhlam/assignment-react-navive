@@ -5,10 +5,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Octicons, FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { Foundation } from '@expo/vector-icons';
+import { Foundation } from "@expo/vector-icons";
 import { HomeScreen } from "./screens/HomeScreen";
 import { FavoritesList } from "./screens/FavoritesList";
 import { DetailScreen } from "./screens/DetailScreen";
+import { useState } from "react";
+import { storeData } from "./store/asyncStorage";
+import { orchids } from "./data/orchid";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,7 +22,7 @@ function BottonTabsView() {
       screenOptions={{
         tabBarStyle: { height: 60, borderRadius: 8 },
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#74ad92'
+        tabBarActiveTintColor: "#74ad92",
       }}
     >
       <Tab.Screen
@@ -30,7 +33,7 @@ function BottonTabsView() {
             <Octicons name="home" color={color} size={size} />
           ),
           headerShown: false,
-          contentStyle: { backgroundColor: 'red' }
+          contentStyle: { backgroundColor: "red" },
         }}
       />
       <Tab.Screen
@@ -40,7 +43,7 @@ function BottonTabsView() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome6 name="heart" size={24} color={color} />
           ),
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
@@ -48,6 +51,9 @@ function BottonTabsView() {
 }
 
 export default function App() {
+  storeData("orchid-list", orchids);
+  storeData("fav-list", []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -66,7 +72,7 @@ export default function App() {
             headerShown: true,
             headerTransparent: true,
             headerBackTitleVisible: false,
-            headerTintColor: '#fff',
+            headerTintColor: "#fff",
             contentStyle: { backgroundColor: "#74ad92" },
           }}
         />

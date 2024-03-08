@@ -1,11 +1,24 @@
-import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { getData, storeData } from "../store/asyncStorage";
 
 export const OrchidItem = ({ item }) => {
+  const id = item.id;
   const navigation = useNavigation();
+  const [isActive, setIsActive] = useState(false);
+  const [favoriteList, setFavoriteList] = useState([]);
+
+  const isFav = favoriteList.includes(id);
 
   function onPressHandler(id) {
     navigation.navigate("Detail", {
@@ -13,19 +26,48 @@ export const OrchidItem = ({ item }) => {
     });
   }
 
+  function handleAddNewFav() {
+    if (isFav) {
+      const newItems = favoriteList.filter((item) => item !== id);
+      storeData("fav-list", newItems);
+    } else {
+      storeData("fav-list", [...favoriteList, id]);
+    }
+    setIsActive(!isActive);
+  }
+
+  async function getOrchidList() {
+    const favoriteList = await getData("fav-list");
+    setFavoriteList(favoriteList);
+  }
+
+  useEffect(() => {
+    getOrchidList();
+  }, [favoriteList]);
 
   return (
-    <Pressable
-      onPress={() => onPressHandler(item.id)}
-      style={({ pressed }) => (pressed ? styles.itemPressed : null)}
-    >
-      <View style={styles.itemContainer}>
-        <Feather name="heart" size={24} color="black" style={styles.heart} />
+    <View style={styles.itemContainer}>
+      <TouchableOpacity
+        onPress={() => handleAddNewFav()}
+        style={styles.heartWrapper}
+      >
+        {isFav ? (
+          <AntDesign name="heart" size={24} style={styles.heart} />
+        ) : (
+          <View hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+            <Feather name="heart" size={25} style={styles.heart} />
+          </View>
+        )}
+      </TouchableOpacity>
+      <Pressable
+        onPress={() => onPressHandler(item.id)}
+        style={({ pressed }) => (pressed ? styles.itemPressed : null)}
+      >
         <Image source={item.image} style={styles.image} />
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.price}>{item.price} đ</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
@@ -41,12 +83,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   heart: {
+    color: "#9fc6b3",
+  },
+  heartWrapper: {
     position: "absolute",
     zIndex: 1,
     right: 0,
     top: 0,
     padding: 10,
-    color: "#9fc6b3",
   },
   fillheart: {
     color: "#9fc6b3",
@@ -60,20 +104,20 @@ const styles = StyleSheet.create({
   title: {
     position: "absolute",
     zIndex: 3,
-    bottom: 30,
+    bottom: -20,
     marginLeft: 10,
     fontWeight: "bold",
-    color: '#475569'
+    color: "#475569",
   },
   price: {
     position: "absolute",
     zIndex: 3,
-    bottom: 10,
+    bottom: -40,
     marginLeft: 10,
     fontWeight: "bold",
-    color: '#475569'
+    color: "#475569",
   },
   itemPressed: {
-    opacity: 0.5
-  }
+    opacity: 0.5,
+  },
 });

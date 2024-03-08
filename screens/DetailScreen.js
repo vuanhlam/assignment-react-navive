@@ -48,7 +48,7 @@ export const DetailScreen = ({ route }) => {
             <Text style={styles.title}>{orchid.name}</Text>
             <Text style={styles.subtitle}>{orchid.pots}</Text>
           </View>
-          <TouchableOpacity onPress={() => handleAddNewFav(orchid.id)}>
+          <TouchableOpacity onPress={() => handleAddNewFav()}>
             {isFav ? (
               <AntDesign name="heart" size={24} style={styles.heart} />
             ) : (

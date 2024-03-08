@@ -30,7 +30,10 @@ function BottonTabsView() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Octicons name="home" color={color} size={size} />
+            <View hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Octicons name="home" color={color} size={size} />
+            </View>
+            // <Octicons name="home" color={color} size={size} />
           ),
           headerShown: false,
           contentStyle: { backgroundColor: "red" },

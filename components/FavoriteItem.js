@@ -1,30 +1,62 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { orchids } from "../data/orchid";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export const FavoriteItem = ({ id }) => {
+export const FavoriteItem = ({ id, handleDeleteFav }) => {
   const item = orchids.find((item) => item.id === id);
+  const navigation = useNavigation();
 
+  function onPressHandler(id) {
+    navigation.navigate("Detail", {
+      orchidId: id,
+    });
+  }
   return (
-    <View style={styles.itemContainer}>
-      <Image source={item.image} style={styles?.image} />
-      <View>
-        <Text style={styles.title}>{item.name}</Text>
-        {/* <Text style={styles.detailDescription}>{item.des}</Text> */}
-        <Text style={styles.branches}>Số lượng cành hoa: {item.branches}</Text>
-        <Text style={styles.pots}>Loại chậu: {item.pots}</Text>
-        <View style={styles.footer}>
-          <View>
-            <Text style={styles.price}>60.000vnd</Text>
+    <Pressable onPress={() => onPressHandler(item.id)}>
+      <View style={styles.itemContainer}>
+        <Image source={item.image} style={styles?.image} />
+        <View>
+          <Text style={styles.title}>{item.name}</Text>
+          {/* <Text style={styles.detailDescription}>{item.des}</Text> */}
+          <Text style={styles.pots}>
+            <Text style={styles.text}>Loại chậu:</Text> {item.pots}
+          </Text>
+          <Text style={styles.branches}>
+            <Text style={styles.text}>Số lượng cành hoa:</Text> {item.branches}
+          </Text>
+          <View style={styles.footer}>
+            <View>
+              <Text style={styles.price}>{item.price}vnd</Text>
+            </View>
           </View>
         </View>
+        <View style={styles.buyBtn}>
+          <Text style={styles.textButtonBuy}>Mua</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => handleDeleteFav(item.id)}
+          style={styles.heartWrapper}
+        >
+          <AntDesign
+            name="heart"
+            size={24}
+            color="black"
+            style={styles.heart}
+          />
+        </TouchableOpacity>
+        {/* <Feather name="heart" size={25} style={styles.heart} /> */}
       </View>
-      <View style={styles.buyBtn}>
-        <Text style={styles.textButtonBuy}>Buy</Text>
-      </View>
-      <AntDesign name="heart" size={24} color="black" style={styles.heart} />
-    </View>
+    </Pressable>
   );
 };
 
@@ -64,13 +96,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
   },
-  heart: {
+  heartWrapper: {
     position: "absolute",
     top: 0,
     right: 0,
-    color: "#618f79",
     paddingRight: 15,
     paddingTop: 6,
+  },
+  heart: {
+    color: "#618f79",
   },
   buyBtn: {
     backgroundColor: "#618f79",
@@ -79,7 +113,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     marginRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   textButtonBuy: {
     color: "#fff",
@@ -94,5 +128,9 @@ const styles = StyleSheet.create({
   },
   branches: {
     marginTop: 7,
+  },
+  text: {
+    fontWeight: "bold",
+    color: "#475569",
   },
 });

@@ -11,11 +11,17 @@ import { FavoriteItem } from "../components/FavoriteItem";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import { SearchInput } from "../components/SearchInput";
-import { getData } from "../store/asyncStorage";
+import { getData, storeData } from "../store/asyncStorage";
 import { useFocusEffect } from "@react-navigation/native";
 
 export const FavoritesList = () => {
   const [listFav, setListFav] = useState([]);
+
+  function handleDeleteFav(id) {
+    const newFavList = listFav.filter((item) => item !== id);
+    setListFav(newFavList)
+    storeData("fav-list", newFavList)
+  }
 
   useFocusEffect(
     React.useCallback(() => {
@@ -46,7 +52,7 @@ export const FavoritesList = () => {
         <View style={styles.listView}>
           {listFav.length > 0 ? (
             listFav.map((item, index) => {
-              return <FavoriteItem key={`item ${index}`} id={item} />;
+              return <FavoriteItem handleDeleteFav={handleDeleteFav} key={`item ${index}`} id={item} />;
             })
           ) : (
             <Text style={styles.empty}>favorite list is empty</Text>

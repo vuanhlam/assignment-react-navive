@@ -20,7 +20,7 @@ export const OrchidItem = ({ item }) => {
       style={({ pressed }) => (pressed ? styles.itemPressed : null)}
     >
       <View style={styles.itemContainer}>
-        {/* <Feather name="heart" size={24} color="black" style={styles.heart} /> */}
+        <Feather name="heart" size={24} color="black" style={styles.heart} />
         <Image source={item.image} style={styles.image} />
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.price}>{item.price} đ</Text>

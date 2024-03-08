@@ -52,7 +52,9 @@ export const DetailScreen = ({ route }) => {
             {isFav ? (
               <AntDesign name="heart" size={24} style={styles.heart} />
             ) : (
-              <Feather name="heart" size={24} style={styles.heart} />
+              <View hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <Feather name="heart" size={25} style={styles.heart} />
+              </View>
             )}
           </TouchableOpacity>
         </View>
